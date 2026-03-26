@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talleres InCompany IA – Rocio Zelada</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --rust: #b05a2f;
+    --teal: #1a5c5a;
+    --teal-light: #2a8a87;
+    --off-white: #faf8f4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.08) 79px, rgba(201,168,76,0.08) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.08) 79px, rgba(201,168,76,0.08) 80px);
+    pointer-events: none;
+  }
+
+  .hero-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 80px;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 5vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 300;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 48px;
+    line-height: 1.4;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 56px;
+  }
+  .tag {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 2px;
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: var(--gold-light); }
+  .hero-cta svg { width: 16px; height: 16px; }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+    z-index: 2;
+  }
+
+  .hero-card {
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 48px 40px;
+    max-width: 380px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .stat-list { list-style: none; }
+  .stat-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .stat-list li:last-child { border-bottom: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 56px;
+  }
+  .stat-desc {
+    font-size: 13px;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.5;
+    padding-top: 4px;
+  }
+  .stat-desc strong {
+    display: block;
+    color: var(--cream);
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+
+  /* ── INTRO BAND ── */
+  .intro-band {
+    background: var(--gold);
+    padding: 28px 80px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .intro-band p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    flex: 1;
+    line-height: 1.4;
+  }
+  .intro-band-badge {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 80px; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--teal);
+    opacity: 0.3;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 48px;
+    color: var(--ink);
+  }
+  .section-title em { font-style: italic; color: var(--teal); }
+
+  /* ── WORKSHOPS GRID ── */
+  .workshops { background: var(--off-white); }
+
+  .workshops-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--ink);
+  }
+
+  .workshop-card {
+    background: var(--off-white);
+    padding: 40px 36px;
+    position: relative;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .workshop-card:hover { background: var(--cream); }
+
+  .ws-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: var(--ink);
+    opacity: 0.06;
+    line-height: 1;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+  }
+
+  .ws-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid var(--teal);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .ws-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: var(--ink);
+    max-width: 260px;
+  }
+
+  .ws-desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .ws-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .ws-tool {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* Special wide card */
+  .workshop-card.wide { grid-column: span 2; }
+
+  /* ── VISUAL SEPARATOR ── */
+  .visual-separator {
+    display: block;
+    line-height: 0;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .visual-separator svg {
+    width: 100%;
+    height: 260px;
+    display: block;
+  }
+
+  /* ── METHODOLOGY ── */
+  .methodology { background: var(--ink); color: var(--cream); }
+  .methodology .section-title { color: var(--cream); }
+  .methodology .section-title em { color: var(--gold); }
+  .methodology .section-label { color: var(--gold); }
+  .methodology .section-label::after { background: var(--gold); }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  .method-item {
+    border-top: 1px solid rgba(201,168,76,0.3);
+    padding-top: 28px;
+  }
+
+  .method-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--gold);
+    font-size: 16px;
+  }
+
+  .method-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--cream);
+  }
+
+  .method-body {
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.7;
+  }
+
+  /* ── REQUIREMENTS ── */
+  .requirements { background: var(--cream); }
+
+  .req-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 48px;
+  }
+
+  .req-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .req-list { list-style: none; }
+  .req-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .req-list li:last-child { border-bottom: none; }
+  .req-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  /* ── FACILITATOR ── */
+  .facilitator { background: var(--teal); color: white; }
+
+  .fac-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .fac-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+
+  .fac-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: white;
+  }
+
+  .fac-title {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .fac-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .fac-badge {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 2px;
+  }
+
+  .fac-right { }
+
+  .fac-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 34px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 40px;
+    padding-left: 24px;
+    border-left: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .fac-details { list-style: none; }
+  .fac-details li {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    line-height: 1.5;
+  }
+  .fac-details li:last-child { border-bottom: none; }
+  .fac-check {
+    color: var(--gold-light);
+    font-size: 14px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    background: var(--ink);
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(201,168,76,0.03) 20px,
+      rgba(201,168,76,0.03) 21px
+    );
+    padding: 100px 80px;
+    text-align: center;
+  }
+
+  .cta-footer .section-label {
+    justify-content: center;
+    color: var(--gold);
+  }
+  .cta-footer .section-label::after,
+  .cta-footer .section-label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .cta-footer h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .cta-footer h2 em { font-style: italic; color: var(--gold); }
+
+  .cta-footer p {
+    font-size: 15px;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 48px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .cta-footer-note {
+    margin-top: 32px;
+    font-size: 12px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FOOTER BAR ── */
+  .footer-bar {
+    background: #050505;
+    padding: 24px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--gold);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .footer-tagline {
+    font-size: 11px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.5s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.6s; }
+  .hero-right {
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    section { padding: 70px 40px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 80px 40px 40px; }
+    .hero-right { padding: 40px 40px 80px; }
+    .workshops-grid { grid-template-columns: 1fr 1fr; }
+    .workshop-card.wide { grid-column: span 2; }
+    .method-grid { grid-template-columns: 1fr 1fr; }
+    .fac-inner { grid-template-columns: 1fr; gap: 40px; }
+    .req-grid { grid-template-columns: 1fr; gap: 40px; }
+    .intro-band { padding: 28px 40px; }
+    .footer-bar { padding: 24px 40px; }
+    .cta-footer { padding: 70px 40px; }
+  }
+
+  @media (max-width: 640px) {
+    section { padding: 60px 24px; }
+    .hero-left { padding: 60px 24px 32px; }
+    .hero-right { padding: 32px 24px 60px; }
+    .workshops-grid { grid-template-columns: 1fr; background: transparent; gap: 16px; }
+    .workshop-card.wide { grid-column: span 1; }
+    .method-grid { grid-template-columns: 1fr; }
+    .intro-band { flex-direction: column; padding: 24px; gap: 12px; }
+    .footer-bar { flex-direction: column; gap: 8px; text-align: center; padding: 20px 24px; }
+    .cta-footer { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">Oferta InCompany · Sem 1 2026</div>
+    <h1>Talleres de<br><em>Inteligencia<br>Artificial</em></h1>
+    <p class="hero-subtitle">Productividad Personal,<br>Product & Project Management</p>
+    <div class="hero-tags">
+      <span class="tag">100% Online</span>
+      <span class="tag">Interactivo</span>
+      <span class="tag">Casos Reales</span>
+      <span class="tag">Equipos Corporativos</span>
+    </div>
+    <a href="#talleres" class="hero-cta">
+      Ver Talleres
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <p class="hero-card-title">Lo que obtienes</p>
+      <ul class="stat-list">
+        <li>
+          <span class="stat-num">6</span>
+          <div class="stat-desc"><strong>Workshops Especializados</strong>Desde productividad personal hasta agentes IA avanzados</div>
+        </li>
+        <li>
+          <span class="stat-num">3</span>
+          <div class="stat-desc"><strong>Ejes Temáticos</strong>Contenidos, Product Mgmt y Project Mgmt con IA</div>
+        </li>
+        <li>
+          <span class="stat-num">0</span>
+          <div class="stat-desc"><strong>Instalaciones Previas</strong>Sin fricción técnica — todo se aprende en vivo</div>
+        </li>
+        <li>
+          <span class="stat-num">∞</span>
+          <div class="stat-desc"><strong>Casos de Uso Prácticos</strong>Aprendizaje que se aplica el mismo día</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO BAND -->
+<div class="intro-band">
+  <p>"Aprende a incorporar la Inteligencia Artificial en tu día a día, sin fricción ni complicaciones."</p>
+  <span class="intro-band-badge">Rocio Zelada · RocioZelada.com</span>
+</div>
+
+<!-- WORKSHOPS -->
+<section class="workshops" id="talleres">
+  <div class="section-label">Programa Completo</div>
+  <h2 class="section-title">Los <em>6 Talleres</em></h2>
+
+  <div class="workshops-grid">
+
+    <div class="workshop-card">
+      <span class="ws-number">01</span>
+      <span class="ws-badge">Workshop 1</span>
+      <h3 class="ws-title">Estudio, Curación y Generación de Contenidos con IA</h3>
+      <p class="ws-desc">Domina el flujo de la "infoxicación" con el proceso de curación de 6 pasos. Aprende a utilizar la IA como co-autor y crea contenido profesional para LinkedIn desde cero.</p>
+      <div class="ws-tools">
+        <span class="ws-tool">NotebookLM</span>
+        <span class="ws-tool">Gemini</span>
+        <span class="ws-tool">LinkedIn</span>
+      </div>
+    </div>
+
+    <div class="workshop-card">
+      <span class="ws-number">02</span>
+      <span class="ws-badge">Workshop 2</span>
+      <h3 class="ws-title">Product Management en la Era de la IA</h3>
+      <p class="ws-desc">Analiza comentarios de usuarios, detecta puntos de dolor, define OKRs y genera un PRD completo. La IA libera horas de documentación para que te enfoques en la estrategia.</p>
+      <div class="ws-tools">
+        <span class="ws-tool">NotebookLM</span>
+        <span class="ws-tool">Gemini 3.0</span>
+        <span class="ws-tool">Google Docs</span>
+        <span class="ws-tool">Gherkin</span>
+      </div>
+    </div>
+
+    <div class="workshop-card">
+      <span class="ws-number">03</span>
+      <span class="ws-badge">Workshop 3</span>
+      <h3 class="ws-title">Project Management e Inteligencia Artificial</h3>
+      <p class="ws-desc">Convierte los datos en el "cerebro" del proyecto. Detecta ineficiencias ocultas, crea un Score de Riesgo y genera informes ejecutivos automáticos para tus stakeholders.</p>
+      <div class="ws-tools">
+        <span class="ws-tool">NotebookLM</span>
+        <span class="ws-tool">Gemini</span>
+        <span class="ws-tool">Sheets</span>
+      </div>
+    </div>
+
+    <div class="workshop-card wide">
+      <span class="ws-number">04</span>
+      <span class="ws-badge">Workshop 4</span>
+      <h3 class="ws-title">N8N · Productividad Personal con Automatizaciones</h3>
+      <p class="ws-desc">Integra Gemini con Google Suite y automatiza tu bandeja de Gmail, Google Tasks, Calendar y Sheets. Explora el ecosistema agéntico y las diferencias entre n8n y Make en un caso práctico que podrás replicar inmediatamente.</p>
+      <div class="ws-tools">
+        <span class="ws-tool">N8N</span>
+        <span class="ws-tool">Make</span>
+        <span class="ws-tool">Gemini</span>
+        <span class="ws-tool">Gmail</span>
+        <span class="ws-tool">Google Suite</span>
+      </div>
+    </div>
+
+    <div class="workshop-card">
+      <span class="ws-number">05</span>
+      <span class="ws-badge">Workshop 5</span>
+      <h3 class="ws-title">N8N Agentes · Sesión I: Introducción y Estructura</h3>
+      <p class="ws-desc">Comprende la lógica detrás de los agentes IA. Analiza la arquitectura JSON de un flujo de trabajo inicial en una sesión teórico-práctica con espacio de Q&A.</p>
+      <div class="ws-tools">
+        <span class="ws-tool">N8N</span>
+        <span class="ws-tool">JSON</span>
+        <span class="ws-tool">Agentes IA</span>
+      </div>
+    </div>
+
+    <div class="workshop-card">
+      <span class="ws-number">06</span>
+      <span class="ws-badge">Workshop 6</span>
+      <h3 class="ws-title">N8N Agentes · Sesión II: Ejecución y Casos Avanzados</h3>
+      <p class="ws-desc">Configura agentes de mayor complejidad, integra Gmail y Google Calendar de forma autónoma y mide el impacto de tus automatizaciones con prompts de alto rendimiento.</p>
+      <div class="ws-tools">
+        <span class="ws-tool">N8N</span>
+        <span class="ws-tool">Gmail</span>
+        <span class="ws-tool">Google Calendar</span>
+        <span class="ws-tool">Prompting</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VISUAL SEPARATOR -->
+<div class="visual-separator">
+  <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0d0d0d"/>
+        <stop offset="40%" style="stop-color:#1a3a38"/>
+        <stop offset="100%" style="stop-color:#0d0d0d"/>
+      </linearGradient>
+      <radialGradient id="glow1" cx="30%" cy="50%" r="40%">
+        <stop offset="0%" style="stop-color:#c9a84c;stop-opacity:0.18"/>
+        <stop offset="100%" style="stop-color:#c9a84c;stop-opacity:0"/>
+      </radialGradient>
+      <radialGradient id="glow2" cx="75%" cy="40%" r="35%">
+        <stop offset="0%" style="stop-color:#2a8a87;stop-opacity:0.22"/>
+        <stop offset="100%" style="stop-color:#2a8a87;stop-opacity:0"/>
+      </radialGradient>
+    </defs>
+    <!-- Background -->
+    <rect width="1440" height="320" fill="url(#sepGrad)"/>
+    <rect width="1440" height="320" fill="url(#glow1)"/>
+    <rect width="1440" height="320" fill="url(#glow2)"/>
+    <!-- Grid lines horizontal -->
+    <line x1="0" y1="80" x2="1440" y2="80" stroke="#c9a84c" stroke-opacity="0.06" stroke-width="1"/>
+    <line x1="0" y1="160" x2="1440" y2="160" stroke="#c9a84c" stroke-opacity="0.06" stroke-width="1"/>
+    <line x1="0" y1="240" x2="1440" y2="240" stroke="#c9a84c" stroke-opacity="0.06" stroke-width="1"/>
+    <!-- Grid lines vertical -->
+    <line x1="180" y1="0" x2="180" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="360" y1="0" x2="360" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="540" y1="0" x2="540" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="720" y1="0" x2="720" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="900" y1="0" x2="900" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="1080" y1="0" x2="1080" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="1260" y1="0" x2="1260" y2="320" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <!-- Large decorative circle left -->
+    <circle cx="220" cy="160" r="120" fill="none" stroke="#c9a84c" stroke-opacity="0.12" stroke-width="1"/>
+    <circle cx="220" cy="160" r="80" fill="none" stroke="#c9a84c" stroke-opacity="0.08" stroke-width="1"/>
+    <circle cx="220" cy="160" r="40" fill="none" stroke="#c9a84c" stroke-opacity="0.15" stroke-width="1"/>
+    <circle cx="220" cy="160" r="6" fill="#c9a84c" fill-opacity="0.4"/>
+    <!-- Diagonal accent lines -->
+    <line x1="400" y1="0" x2="700" y2="320" stroke="#c9a84c" stroke-opacity="0.05" stroke-width="1"/>
+    <line x1="500" y1="0" x2="800" y2="320" stroke="#c9a84c" stroke-opacity="0.05" stroke-width="1"/>
+    <!-- Central text art -->
+    <text x="720" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="6" fill="#c9a84c" fill-opacity="0.5" font-weight="300">METODOLOGÍA</text>
+    <text x="720" y="182" text-anchor="middle" font-family="Georgia, serif" font-size="38" letter-spacing="2" fill="#f5f0e8" fill-opacity="0.08" font-weight="300">Aprende Haciendo</text>
+    <!-- Gold horizontal rule center -->
+    <line x1="580" y1="160" x2="860" y2="160" stroke="#c9a84c" stroke-opacity="0.3" stroke-width="0.5"/>
+    <circle cx="580" cy="160" r="3" fill="#c9a84c" fill-opacity="0.4"/>
+    <circle cx="860" cy="160" r="3" fill="#c9a84c" fill-opacity="0.4"/>
+    <circle cx="720" cy="160" r="3" fill="#c9a84c" fill-opacity="0.6"/>
+    <!-- Large decorative circle right -->
+    <circle cx="1220" cy="160" r="120" fill="none" stroke="#2a8a87" stroke-opacity="0.12" stroke-width="1"/>
+    <circle cx="1220" cy="160" r="80" fill="none" stroke="#2a8a87" stroke-opacity="0.08" stroke-width="1"/>
+    <circle cx="1220" cy="160" r="40" fill="none" stroke="#2a8a87" stroke-opacity="0.15" stroke-width="1"/>
+    <circle cx="1220" cy="160" r="6" fill="#2a8a87" fill-opacity="0.4"/>
+    <!-- Scattered dots -->
+    <circle cx="450" cy="60" r="2" fill="#c9a84c" fill-opacity="0.2"/>
+    <circle cx="520" cy="250" r="1.5" fill="#c9a84c" fill-opacity="0.15"/>
+    <circle cx="950" cy="80" r="2" fill="#2a8a87" fill-opacity="0.25"/>
+    <circle cx="1000" cy="240" r="1.5" fill="#2a8a87" fill-opacity="0.2"/>
+    <circle cx="350" cy="200" r="1" fill="#c9a84c" fill-opacity="0.3"/>
+    <circle cx="1100" cy="120" r="1" fill="#2a8a87" fill-opacity="0.3"/>
+    <!-- Bottom fade -->
+    <rect width="1440" height="60" y="260" fill="url(#sepGrad)" opacity="0.6"/>
+  </svg>
+</div>
+
+<!-- METHODOLOGY -->
+<section class="methodology">
+  <div class="section-label">Cómo Aprenderás</div>
+  <h2 class="section-title">Metodología <em>100% Online<br>& Práctica</em></h2>
+
+  <div class="method-grid">
+    <div class="method-item">
+      <div class="method-icon">▶</div>
+      <h3 class="method-title">Demo Paso a Paso</h3>
+      <p class="method-body">Cada herramienta y caso de uso se muestra en vivo, con explicación detallada de cada acción para que puedas replicarlo de inmediato.</p>
+    </div>
+    <div class="method-item">
+      <div class="method-icon">◎</div>
+      <h3 class="method-title">Sesión Interactiva</h3>
+      <p class="method-body">Dinámica de preguntas, reflexión grupal y retroalimentación temprana con herramientas colaborativas a lo largo de toda la sesión.</p>
+    </div>
+    <div class="method-item">
+      <div class="method-icon">⬡</div>
+      <h3 class="method-title">Casos de Uso Reales</h3>
+      <p class="method-body">El aprendizaje se ancla en situaciones reales de trabajo: articulos, PRDs, carteras de proyectos y flujos de automatización cotidianos.</p>
+    </div>
+    <div class="method-item">
+      <div class="method-icon">✦</div>
+      <h3 class="method-title">Zoom · Teams · Meet</h3>
+      <p class="method-body">Compatible con las plataformas de videoconferencia de tu empresa. Sin instalar nada adicional antes del taller.</p>
+    </div>
+    <div class="method-item">
+      <div class="method-icon">◈</div>
+      <h3 class="method-title">Revisión en Grupo</h3>
+      <p class="method-body">Al final de cada sesión, revisamos el caso de uso con toda la clase para consolidar los aprendizajes y resolver dudas.</p>
+    </div>
+    <div class="method-item">
+      <div class="method-icon">❋</div>
+      <h3 class="method-title">Recursos y Comunidad</h3>
+      <p class="method-body">Materiales de referencia y acceso a comunidades activas relacionadas con cada herramienta para seguir aprendiendo después.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section class="requirements">
+  <div class="section-label">Antes de Comenzar</div>
+  <h2 class="section-title">Requerimientos <em>Mínimos</em></h2>
+
+  <div class="req-grid">
+    <div>
+      <h3 class="req-block-title">Técnicos</h3>
+      <ul class="req-list">
+        <li><span class="req-dot"></span>PC o Laptop con buena conexión a internet</li>
+        <li><span class="req-dot"></span>Cámara de video funcional para las sesiones</li>
+        <li><span class="req-dot"></span>Plataforma de videoconferencia instalada (Zoom, Teams o Meet)</li>
+        <li><span class="req-dot"></span><em>No es necesario tener herramientas de IA instaladas de antemano — en clase se explica todo</em></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="req-block-title">Actitudinales</h3>
+      <ul class="req-list">
+        <li><span class="req-dot"></span>Pensamiento abierto y curiosidad genuina</li>
+        <li><span class="req-dot"></span>Buena actitud y disposición al cambio</li>
+        <li><span class="req-dot"></span>Deseo de compartir experiencias con el equipo</li>
+        <li><span class="req-dot"></span>Coordinación mínima de 20 días antes del primer taller</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITATOR -->
+<section class="facilitator">
+  <div class="fac-inner">
+    <div>
+      <p class="fac-label">Tu Facilitadora</p>
+      <h2 class="fac-name">Rocio<br>Zelada Rück</h2>
+      <p class="fac-title">Speaker, Mentor y Docente Internacional en Gestión e Inteligencia Artificial</p>
+      <div class="fac-badges">
+        <span class="fac-badge">PMP Certified</span>
+        <span class="fac-badge">MBA</span>
+        <span class="fac-badge">DBA en proceso</span>
+        <span class="fac-badge">Ing. de Sistemas</span>
+      </div>
+    </div>
+    <div class="fac-right">
+      <blockquote class="fac-quote">
+        "Gestión y tecnología sin complicaciones — para que tu equipo avance sin fricción."
+      </blockquote>
+      <ul class="fac-details">
+        <li>
+          <span class="fac-check">✓</span>
+          Fundadora de RocioZelada.com, comunidad abierta que promueve el uso práctico de la gestión y la tecnología.
+        </li>
+        <li>
+          <span class="fac-check">✓</span>
+          Ingeniera de Sistemas con Certificación PMP y MBA con especialización en Proyectos.
+        </li>
+        <li>
+          <span class="fac-check">✓</span>
+          Promotora activa de Diversidad, Equidad e Inclusión (DEI) en entornos tecnológicos.
+        </li>
+        <li>
+          <span class="fac-check">✓</span>
+          Experiencia facilitando workshops InCompany para equipos de diferentes industrias.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FOOTER -->
+<section class="cta-footer">
+  <div class="section-label">¿Listo para Empezar?</div>
+  <h2>Lleva la <em>IA</em> a tu<br>equipo hoy</h2>
+  <p>Fechas y horarios a coordinar directamente con la facilitadora. Tiempo de coordinación previo: 20 días antes del primer taller.</p>
+  <a href="mailto:soy@rociozelada.com" class="hero-cta" style="margin: 0 auto;">
+    Contactar a Rocio
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+  <p class="cta-footer-note">rociozelada.com &nbsp;·&nbsp; Talleres 100% Online &nbsp;·&nbsp; Sem 1 · 2026</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-bar">
+  <span class="footer-brand">Rocio Zelada</span>
+  <span class="footer-tagline">Innovación y Tecnología · rociozelada.com</span>
+</footer>
+
+</body>
+</html>
